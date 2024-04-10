@@ -71,5 +71,3 @@ image_segmentation --task ${task} \
       --evaluation_freq ${evaluation_freq} \
       --predict_on_train True \
       --scheduler ${scheduler} \
-
-

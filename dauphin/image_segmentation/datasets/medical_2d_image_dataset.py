@@ -65,7 +65,7 @@ class Medical2DImageDataset(EmmentalDataset):
                 os.path.join(datapath, split, "*_image.npy")
              ):
                 if segpath: # Select all images that also have a seg mask
-                    key = img_path.split('/')[-1].split('_image')[0]
+                    key = img_path.split('\\')[-1].split('_image')[0]
                     seg_path = os.path.join(segpath, split, f"{key}_seg.npy")
                     if os.path.exists(seg_path):
                         img = np.load(img_path)
@@ -77,7 +77,7 @@ class Medical2DImageDataset(EmmentalDataset):
                             Y_dict["seg_path"].append(seg_path)
                         
                 else: # Select all images, regardless of if they have a seg mask (used to predict pseudolabel on unlabeled train data)
-                    key = img_path.split('/')[-1].split('_image')[0]
+                    key = img_path.split('\\')[-1].split('_image')[0]
                     img = np.load(img_path)
                     for idx in range(img.shape[-1]):
                         selected_keys.append(str(split) + KEY_DELIMITER + key + KEY_DELIMITER + str(idx))
@@ -141,7 +141,7 @@ class Medical2DImageDataset(EmmentalDataset):
         if len(label.shape) == 2:
             one_hot = torch.zeros(label.shape + (self.label_classes,))
             label = one_hot.scatter_(
-                2, torch.from_numpy(label.astype("int")).unsqueeze(2), 1.0
+                2, torch.from_numpy(label.astype("int64")).unsqueeze(2), 1.0
             )
         else:
             label = torch.from_numpy(label.astype("float32"))

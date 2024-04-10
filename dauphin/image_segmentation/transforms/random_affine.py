@@ -133,9 +133,9 @@ class RandomAffine(DauphinTransform):
             PIL Image or Tensor: Affine transformed image.
         """
         if isinstance(img, list):
-            img_size = F._get_image_size(img[0])
+            img_size = F.get_image_size(img[0])
         else:
-            img_size = F._get_image_size(img)
+            img_size = F.get_image_size(img)
 
         ret = self.get_params(
             self.degrees, self.translate, self.scale, self.shear, img_size

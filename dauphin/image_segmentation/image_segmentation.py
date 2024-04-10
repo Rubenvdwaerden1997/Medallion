@@ -26,7 +26,7 @@ def main(args):
     
     # Initialize 
     args.data_config = load_data_config(os.path.join(args.datapath, "config.yaml"))
-
+    
     config = parse_args_to_config(args)
     emmental.init(
         log_dir=config["meta_config"]["log_path"],
@@ -46,10 +46,10 @@ def main(args):
 
     logger.info(f"Config: {emmental.Meta.config}")
     write_to_file(f"{emmental.Meta.log_path}/config.txt", emmental.Meta.config)
-
+    print("This is before dataloaders")
     # Create dataloaders
     dataloaders = get_dataloaders(args)
-
+    print("This is  datasets",dataloaders)
     # Assign transforms to dataloaders
     for idx in range(len(dataloaders)):
         if dataloaders[idx].split in args.train_split:

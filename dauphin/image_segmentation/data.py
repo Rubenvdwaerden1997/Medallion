@@ -14,7 +14,6 @@ logger = logging.getLogger(__name__)
 def get_dataloaders(args):
     dataloaders = []
     datasets = {}
-
     for split in ["train", "val", "test"]:
         if split == "train" and args.train_data_available:
             datasets[split] = ALL_DATASETS[MODEL_DIM[args.model]](
@@ -51,7 +50,7 @@ def get_dataloaders(args):
                 image_size_c=args.image_size_c,
                 hist_eq=args.hist_eq,
             )
-            
+           
     for split, dataset in datasets.items():
         dataloaders.append(
             EmmentalDataLoader(
@@ -70,7 +69,7 @@ def get_dataloaders(args):
             f"samples (Shuffle={split in args.train_split}, "
             f"Batch size={dataloaders[-1].batch_size})."
         )
-
+    print('This is after first forsplit,dataset',dataloaders) 
     if args.consistency_datapath:
         datasets = {}
 
@@ -104,5 +103,5 @@ def get_dataloaders(args):
                 f"samples (Shuffle={split in args.train_split}, "
                 f"Batch size={dataloaders[-1].batch_size})."
             )
-
+    print('This is end',dataloaders) 
     return dataloaders
